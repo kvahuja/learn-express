@@ -1,18 +1,32 @@
 const express = require('express');
 
+// setup express server
 const app = express();
+app.set('view engine', 'pug');
 
-// setup routes
+const colors = [
+    'red',
+    'blue',
+    'green'
+];
+
 // 1. route for home page
 app.get('/', (req, res) => {
-    res.send("<h1>Hello World!!</h1>");
+    res.locals.author = "Kapil Viren Ahuja";
+    res.render('home')
 });
 
-// 2. route for .....
+// 2. route for about
 app.get('/about', (req, res) => {
-    res.send("<h2>Made by Kapil Viren Ahuja as he learns node.js");
+    res.render('about');
 });
 
+// 3. route for cards
+app.get('/cards', (req, res) => {
+    res.locals.prompt = "Who is burried in Grant's tomb?";
+    res.locals.colors = colors;
+    res.render('card');
+});
 
 // start the server
 app.listen(3000, () => {
