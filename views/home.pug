@@ -1,9 +1,7 @@
-extends ../layouts/simple-layout.pug
+extends app
 
-block content
-    header
-        h2 Examplqe app to help you learn Node.js' Express Server
-        h3 Welcome #{firstname}!!
-
-    form(action='/goodbye', method='post')
-        button(type='submit') Goodbye dum dum, We will miss ya!!
+block intro
+  form.namecard-form(action='/hello', method='post')
+    label.namecard-prompt Please enter your name:
+      input.namecard-name(type='text', name='username')
+    button.namecard-submit(type='submit') Submit

@@ -3,34 +3,38 @@ const router = express.Router();
 
 // 1. route for home page
 router.get('/', (req, res) => {
-    res.locals.author = "Kapil Viren Ahuja";
-    const firstname = req.cookies.firstname;
-    if (firstname ) {
-        res.render('home', { firstname })
+    const name = req.cookies.username;
+    if (name) {
+      res.render('index', { name });
     } else {
-        res.redirect('/hello');
+      res.redirect('/hello');
     }
 });
 
-// 2. route for about
-router.get('/about', (req, res) => {
-    res.render('about');
-});
 
-// 4. routes for /hello - form submission
 router.get('/hello', (req, res) => {
-    res.render('hello');
-});
+    const name = req.cookies.username;
+    if (name) {
+      res.redirect('/');
+    } else {
+      res.render('home');
+    }
+  });
 
 router.post('/hello', (req, res) => {
-    res.cookie('firstname', req.body.firstname);
+    console.log('hello post');
+    res.cookie('username', req.body.username);
     res.redirect('/');
-});
-
-
-// 4. routes for /logoug - form submission
+  });
+  
 router.post('/goodbye', (req, res) => {
-    res.clearCookie("firstname");
+    res.clearCookie('username');
+    res.redirect('/hello');
+  });
+  
+  // 4. routes for /logoug - form submission
+router.post('/goodbye', (req, res) => {
+    res.clearCookie("username");
     res.redirect('/');
 });
 
