@@ -49,6 +49,12 @@ app.post('/hello', (req, res) => {
 });
 
 
+// 4. routes for /logoug - form submission
+app.post('/goodbye', (req, res) => {
+    res.clearCookie("firstname");
+    res.redirect('/');
+});
+
 // start the server
 app.listen(3000, () => {
     console.log("Restarting application on post 3000");
