@@ -1,15 +1,27 @@
 const express = require('express');
-const cardsRouter = express.Router();
+const router = express.Router();
 
 // load data from server hosted json file.
 const { data } = require('../data/cards.json');
 const { cards } = data;
 
-// 3. route for cards
-cardsRouter.get('/:id', (req, res) => {
+router.get('/', (req, res) => {
+    const numberofCards = cards.length;
+    const id = Math.floor(Math.random() * numberofCards);
+
+    res.redirect(`/cards/${id}`);
+});
+
+// route for cards
+router.get('/:id', (req, res) => {
     // read the id from request
-    const { id } = req.params;
-    const { side } = req.query;
+    let { id } = req.params;
+    let { side } = req.query;
+    
+    if ( !side ) {
+        res.redirect(`/cards/${id}?side=question`);
+    }
+
     const text = cards[id][side];
     const { hint } = cards[id];
     let templateData = { text, id };
@@ -17,10 +29,10 @@ cardsRouter.get('/:id', (req, res) => {
     if (side === 'question') {
         templateData.hint = hint;
     }
-    // console.dir(req.query);
 
     // render the template
     res.render('card', templateData);
 });
 
-module.exports = cardsRouter;
+
+module.exports = router;
