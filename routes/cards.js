@@ -6,16 +6,21 @@ const { data } = require('../data/cards.json');
 const { cards } = data;
 
 // 3. route for cards
-cardsRouter.get('/cards/:id', (req, res) => {
+cardsRouter.get('/:id', (req, res) => {
     // read the id from request
-    const id = req.params.id;
-    
-    // pass values reading from data: cards
-    res.locals.prompt = cards[id].question;
-    res.locals.hint = cards[id].hint;
+    const { id } = req.params;
+    const { side } = req.query;
+    const text = cards[id][side];
+    const { hint } = cards[id];
+    let templateData = { text, id };
+
+    if (side === 'question') {
+        templateData.hint = hint;
+    }
+    console.dir(templateData);
 
     // render the template
-    res.render('card');
+    res.render('card', templateData);
 });
 
 module.exports = cardsRouter;

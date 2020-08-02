@@ -1,8 +1,13 @@
 extends ../layouts/simple-layout.pug
 
 block content
-    h2= prompt
+    h2= text
     if hint
         p
             i Hint: #{hint}
+            br
+            a(href=`/cards/${id}?side=answer`) Answer
+    else
+            a(href=`/cards/${id}?side=question`) Question
+
 
