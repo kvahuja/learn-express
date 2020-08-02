@@ -2,8 +2,6 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 
-const routes = require('./routes');
-const cards = require('./routes/cards.js');
 
 // setup express server
 const app = express();
@@ -24,6 +22,11 @@ app.use( (req, res, next) => {
     console.log("I am blushing. I love you too Middlewre 1!!");
     next();
 })
+
+
+// setup routes
+const routes = require('./routes');
+const cards = require('./routes/cards.js');
 
 app.use(routes);
 app.use(cards);
