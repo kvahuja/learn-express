@@ -17,7 +17,7 @@ cardsRouter.get('/:id', (req, res) => {
     if (side === 'question') {
         templateData.hint = hint;
     }
-    console.dir(templateData);
+    // console.dir(req.query);
 
     // render the template
     res.render('card', templateData);
