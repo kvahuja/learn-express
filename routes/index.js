@@ -17,13 +17,6 @@ router.get('/about', (req, res) => {
     res.render('about');
 });
 
-// 3. route for cards
-router.get('/cards', (req, res) => {
-    res.locals.prompt = "Who is burried in Grant's tomb?";
-    res.locals.colors = colors;
-    res.render('card');
-});
-
 // 4. routes for /hello - form submission
 router.get('/hello', (req, res) => {
     res.render('hello');
