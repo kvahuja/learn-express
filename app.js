@@ -12,14 +12,14 @@ app.set('view engine', 'pug');
 // my own middleware(s)
 // console verbose middleware
 app.use( (req, res, next) => {
-    console.log("my middlweare is in action!!")
+    // console.log("my middlweare is in action!!")
     req.secret = 'Middleware 2 - i love yaaa!!';
     next();
 })
 
 app.use( (req, res, next) => {
-    console.log(req.secret)
-    console.log("I am blushing. I love you too Middlewre 1!!");
+    // console.log(req.secret)
+    // console.log("I am blushing. I love you too Middlewre 1!!");
     next();
 })
 
@@ -29,7 +29,7 @@ const routes = require('./routes');
 const cards = require('./routes/cards.js');
 
 app.use(routes);
-app.use(cards);
+app.use('/cards', cards);
 
 // start the server
 app.listen(3000, () => {
