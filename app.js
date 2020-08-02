@@ -8,6 +8,20 @@ app.use(bodyParser.urlencoded({ extended: false}));
 app.use(cookieParser());
 app.set('view engine', 'pug');
 
+// my own middleware(s)
+// console verbose middleware
+app.use( (req, res, next) => {
+    console.log("my middlweare is in action!!")
+    req.secret = 'Middleware 2 - i love yaaa!!';
+    next();
+})
+
+app.use( (req, res, next) => {
+    console.log(req.secret)
+    console.log("I am blushing. I love you too Middlewre 1!!");
+    next();
+})
+
 const colors = [
     'red',
     'blue',
@@ -18,7 +32,6 @@ const colors = [
 app.get('/', (req, res) => {
     res.locals.author = "Kapil Viren Ahuja";
     const firstname = req.cookies.firstname;
-    console.dir(firstname);
     if (firstname ) {
         res.render('home', { firstname })
     } else {
